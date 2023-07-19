@@ -1,13 +1,17 @@
-import React from "react";
-import "./App.css";
-import Dashboard from "./screens/User/Dashboard"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Dashboard from './screens/User/Dashboard';
+
 function App() {
   return (
-    <>
-      <div className="w-full">
-      <Dashboard/>
-      </div>
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* Add more routes as needed */}
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
