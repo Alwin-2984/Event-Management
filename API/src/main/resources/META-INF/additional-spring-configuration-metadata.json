@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "email.util.status",
+    "type": "java.lang.String",
+    "description": "A description for 'email.util.status'"
+  },
+  {
+    "name": "otp.expiry",
+    "type": "java.lang.String",
+    "description": "A description for 'otp.expiry'"
+  },
+  {
+    "name": "purpose.token.expiry",
+    "type": "java.lang.String",
+    "description": "A description for 'purpose.token.expiry'"
+  },
+  {
+    "name": "email.util.status",
+    "type": "java.lang.String",
+    "description": "A description for 'email.util.status'"
+  },
+  {
+    "name": "local.host.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'local.host.endpoint'"
+  },
+  {
+    "name": "local.host.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'local.host.endpoint'"
+  },
+  {
+    "name": "google.id",
+    "type": "java.lang.String",
+    "description": "A description for 'google.id'"
+  },
+  {
+    "name": "purpose.token.expiry",
+    "type": "java.lang.String",
+    "description": "A description for 'purpose.token.expiry'"
+  }
+]}

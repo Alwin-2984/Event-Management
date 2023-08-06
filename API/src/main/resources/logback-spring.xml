@@ -1,0 +1,15 @@
+<configuration>
+    <!-- Appenders define where logs should be output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Define log format -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger defines the default log level for all loggers -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="org.springframework.security" level="DEBUG" />
+</configuration>
