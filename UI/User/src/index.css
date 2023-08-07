@@ -31,7 +31,7 @@
 
 @layer base {
   .font-outline-2 {
-    -webkit-text-stroke: 2px #281419;
+    -webkit-text-stroke: 2px rgb(97, 96, 96);
   }
   .font-outline-4 {
     -webkit-text-stroke: 3px #382c2f;
@@ -40,4 +40,7 @@
 
 .react-date-picker__wrapper {
   border: 0 !important;
+}
+.react-date-picker__inputGroup__input {
+  width: 32px !important;
 }

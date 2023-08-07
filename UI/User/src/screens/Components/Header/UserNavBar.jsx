@@ -48,6 +48,15 @@ export function NavBar(
       </li>
       <li>
         <NavLink
+          to="/dashboard/Layout4"
+          style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
+        >
+          <HistoryIcon />
+          Layout4
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/dashboard/BookedEventsPro"
           style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
         >

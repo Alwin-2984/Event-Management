@@ -45,13 +45,13 @@ const EventDetailedPage2ndTheme = () => {
 
   return (
     <div className="max-h-[calc(100vh-90px)] overflow-y-scroll overflow-x-hidden">
-      <div className="flex flex-col items-center h-full pb-20">
+      <div className="flex flex-col items-center h-full  pb-20">
         <Canvas bg={bg} />
         <div className="max-md:hidden w-[78%] max-2xl:w-11/12 text-8xl font-black font-sans text-white font-outline-2 hover:font-outline-4 opacity-50">
-          EVENT DETAILS
+          EVENT DETAILS 
         </div>
 
-        <div className="flex flex-row max-md:flex-col  w-[78%] max-2xl:w-11/12  pt-10 max-md:pt-5 gap-5">
+        <div className="flex flex-row max-md:flex-col  w-[78%] max-2xl:w-11/12  pt-6 max-md:pt-5 gap-5">
           <div className="flex justify-center w-2/3 max-md:w-full ">
             <MainImageAndDetails
               renderedSponsers={renderedSponsers}

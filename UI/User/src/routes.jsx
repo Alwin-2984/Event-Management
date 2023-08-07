@@ -20,6 +20,8 @@ import UserDashboard from "./screens/User/Dashboard/UserDashboard";
 import "./routes.css";
 import EventDetailedPage2ndTheme from "./screens/User/EventDetailedPage/EventDetailedPage2ndTheme";
 import EventDetailedPage3rdTheme from "./screens/User/EventDetailedPage/EventDetailedPage3rdTheme";
+import EventDetailedPage1thTheme from "./screens/User/EventDetailedPage/EventDetailedPage1thTheme";
+import EventDetailedPag4thLayout from "./screens/User/EventDetailedPage/EventDetailedPag4thLayout";
 
 export default function Routes() {
   return (
@@ -52,7 +54,11 @@ export default function Routes() {
           children: [
             { element: <Navigate to="home" />, index: true },
             { path: "home", element: <UserDashboard />, index: true },
-            { path: "book", element: <BookedEvents />, index: true },
+            {
+              path: "book",
+              element: <EventDetailedPage1thTheme />,
+              index: true,
+            },
             {
               path: "BookedEventsPro",
               element: <EventDetailedPage3rdTheme />,
@@ -61,6 +67,11 @@ export default function Routes() {
             {
               path: "eventDetailedView",
               element: <EventDetailedPage2ndTheme />,
+              index: true,
+            },
+            {
+              path: "Layout4",
+              element: <EventDetailedPag4thLayout />,
               index: true,
             },
             {

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { BsCalendar2Week } from "react-icons/bs";
 import {
   MdLocationOn,
@@ -12,7 +12,10 @@ import StarRating from "../../../Components/StarRating";
 import { sponsors } from "./sponsors";
 import { Speakers } from "./Speakers";
 
-export default function MainImageAndDetails({renderedSponsers, renderedEvents}) {
+export default function MainImageAndDetails({
+  renderedSponsers,
+  renderedEvents,
+}) {
   return (
     <div>
       <img
@@ -22,8 +25,8 @@ export default function MainImageAndDetails({renderedSponsers, renderedEvents}) 
         loading="lazy"
       />
       <div className="flex flex-row justify-between h-14 items-center max-sm:text-sm">
-        <div className="flex items-center gap-3">
-          <BsCalendar2Week className="text-2xl max-sm:text-base" /> January
+        <div className="flex items-center gap-3 max-sm:max-w-[148px]">
+          <BsCalendar2Week className="text-2xl " /> January
           21,2021 - January 23,2021
         </div>
 
@@ -36,9 +39,12 @@ export default function MainImageAndDetails({renderedSponsers, renderedEvents}) 
           <MdLocationOn className="text-2xl " /> Broadw, New York
         </div>
       </div>
+        <hr />
+        <br />
       <div className="flex flex-row justify-between h-14 items-center max-sm:text-sm">
         <div className="max-sm:text-xs">
           <MdCategory className="text-3xl" />
+          
           Category
         </div>
         <div className="max-sm:text-xs">
@@ -108,5 +114,5 @@ export default function MainImageAndDetails({renderedSponsers, renderedEvents}) 
 
 MainImageAndDetails.propTypes = {
   renderedEvents: PropTypes.any,
-  renderedSponsers: PropTypes.any
-}
+  renderedSponsers: PropTypes.any,
+};
