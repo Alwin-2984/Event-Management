@@ -23,7 +23,7 @@ export default function Speakers({
     currentCSS += theme4CSS;
   }
   const getevent = (e) => {
-    if (e.target.scrollTop == e.target.scrollHeight - e.target.clientHeight) {
+    if (e.target.scrollTop + 2 >= e.target.scrollHeight - e.target.clientHeight) {
       alert("Infinate Scroll  function is working");
     }
   };
