@@ -4,7 +4,6 @@ const LoginAuth = (props) => {
   const location = useLocation();
   const profile = JSON.parse(localStorage.getItem("OrganizationProfile"));
   const token = profile?.data.accessToken;
-  console.log(location);
 
   if (token) {
     return <Navigate to="/Organiser" state={{ from: location }} />;

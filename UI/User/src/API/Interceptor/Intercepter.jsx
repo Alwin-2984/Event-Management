@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Set the base URL using the environment variable
-const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 // Function to get a new access token using the refresh token
 function getAccessTokenFromRefreshToken() {

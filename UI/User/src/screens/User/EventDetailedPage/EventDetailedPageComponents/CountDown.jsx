@@ -1,13 +1,13 @@
-import PropTypes from "prop-types"
-import { useState, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 /**
  * Countdown component that displays the remaining time between a starting date
  * and the current date in days, hours, minutes, and seconds.
  */
-const CountDown = ({startingDate=new Date("2023-09-19")}) => {
-    // Replace with the desired starting date
-    // const startingDate = useMemo(() => new Date("2023-09-19"), []);
+const CountDown = ({ StartDate }) => {
+  // Replace with the desired starting date
+  const startingDate = useMemo(() => new Date(StartDate), [StartDate]);
 
   // Calculate initial time remaining
   const currentTime = new Date().getTime();
@@ -51,9 +51,7 @@ const CountDown = ({startingDate=new Date("2023-09-19")}) => {
 };
 
 CountDown.propTypes = {
-  startingDate: PropTypes.shape({
-    getTime: PropTypes.func
-  })
-}
+  StartDate: PropTypes.any,
+};
 
 export default CountDown;

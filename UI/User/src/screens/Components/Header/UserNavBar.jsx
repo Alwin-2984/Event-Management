@@ -31,7 +31,7 @@ export function NavBar(
       </li>
       <li>
         <NavLink
-          to="/dashboard/eventDetailedView2ndTheme"
+          to="/"
           style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
         >
           <FavoriteIcon /> Favorite
@@ -39,7 +39,7 @@ export function NavBar(
       </li>
       <li>
         <NavLink
-          to="/dashboard/book"
+          to="/"
           style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
         >
           <EventAvailableIcon />
@@ -48,22 +48,14 @@ export function NavBar(
       </li>
       <li>
         <NavLink
-          to="/dashboard/Layout4"
+          to="/"
           style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
         >
           <HistoryIcon />
           Layout4
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard/BookedEventsPro"
-          style={({ isActive }) => (isActive ? { color: "black" } : undefined)}
-        >
-          <HistoryIcon />
-          History
-        </NavLink>
-      </li>
+     
       <li>
         <NavLink
           to="/organizerLogin"

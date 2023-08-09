@@ -27,7 +27,6 @@ export const FormField = ({ values, setFieldValue, label, name, type }) => {
           value={values.dob}
           onChange={(date) => {
             setFieldValue("dob", date);
-            console.log(values, "valuesvalues");
           }}
           minDate={new Date(1900, 0, 1)}
           maxDate={new Date()}
@@ -62,13 +61,4 @@ FormField.propTypes = {
     dob: PropTypes.any,
   }),
 };
-// name={name}
-// onChange={(date) => {
-//   setFieldValue("dob", date);
-//   console.log(values, "valuesvalues");
-// }}
-// selected={values.dob}
-// className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
-// popperClassName="border rounded-lg"
-// minDate={"02-01-2020"}
-// maxDate={"02-29-2020"}
+

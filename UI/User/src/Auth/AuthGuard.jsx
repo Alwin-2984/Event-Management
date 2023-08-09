@@ -4,7 +4,6 @@ const AuthGuard = (props) => {
   const location = useLocation();
   const profile = JSON.parse(localStorage.getItem("OrganizationProfile"));
   const token = profile?.data.accessToken;
-  console.log(location);
 
   if (!token) {
     // User is not authenticated, redirect to the login page

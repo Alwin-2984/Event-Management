@@ -12,16 +12,13 @@ const LoginOrganiser = lazy(() =>
 const OrganizerLayout = lazy(() =>
   import("./screens/Organiser/Dashboard/OrganizerLayout")
 );
-const BookedEvents = lazy(() => import("./screens/User/BookedEvents"));
 const OrganiserDashboard = lazy(() =>
   import("./screens/Organiser/Dashboard/OrganiserDashboard")
 );
 import UserDashboard from "./screens/User/Dashboard/UserDashboard";
 import "./routes.css";
-import EventDetailedPage2ndTheme from "./screens/User/EventDetailedPage/EventDetailedPage2ndTheme";
-import EventDetailedPage3rdTheme from "./screens/User/EventDetailedPage/EventDetailedPage3rdTheme";
-import EventDetailedPage1thTheme from "./screens/User/EventDetailedPage/EventDetailedPage1thTheme";
-import EventDetailedPag4thLayout from "./screens/User/EventDetailedPage/EventDetailedPag4thLayout";
+
+import EventDetailPage from "./screens/User/EventDetailedPage/EventDetailPage";
 
 export default function Routes() {
   return (
@@ -41,11 +38,6 @@ export default function Routes() {
               element: <OrganiserDashboard />,
               index: true,
             },
-            {
-              path: "UpcomingEvent",
-              element: <BookedEvents />,
-              index: true,
-            },
           ],
         },
         {
@@ -56,27 +48,27 @@ export default function Routes() {
             { path: "home", element: <UserDashboard />, index: true },
             {
               path: "book",
-              element: <EventDetailedPage1thTheme />,
+              element: <EventDetailPage />,
               index: true,
             },
             {
               path: "BookedEventsPro",
-              element: <EventDetailedPage3rdTheme />,
+              element: <UserDashboard />,
               index: true,
             },
             {
               path: "eventDetailedView",
-              element: <EventDetailedPage2ndTheme />,
+              element: <EventDetailPage />,
               index: true,
             },
             {
               path: "Layout4",
-              element: <EventDetailedPag4thLayout />,
+              element: <UserDashboard />,
               index: true,
             },
             {
               path: "eventDetailedView2ndTheme",
-              element: <EventDetailedPage2ndTheme />,
+              element: <UserDashboard />,
               index: true,
             },
           ],
@@ -93,6 +85,13 @@ export default function Routes() {
           path: "*",
           element: <NotFound replace />,
           index: true,
+        },
+        {
+          path: "",
+          element: <UserLayout />,
+          children: [
+            { element: <Navigate to="/dashboard/home" />, index: true },
+          ],
         },
       ])}
     </Suspense>

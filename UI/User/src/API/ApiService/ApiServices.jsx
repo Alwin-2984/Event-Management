@@ -1,6 +1,6 @@
 import { instance } from "../Interceptor/Intercepter";
 
-const BASE_URL = import.meta.env.VITE_API_LOCAL_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export function RegistrationAndLogin(formData, signUp, isOrganiser) {
   if (signUp) {

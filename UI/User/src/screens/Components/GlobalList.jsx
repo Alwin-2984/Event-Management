@@ -3,28 +3,39 @@ import style from "./Dashboard/Dashboard.module.css";
 import StarRating from "./StarRating";
 import { NavLink } from "react-router-dom";
 
-export function GlobalList(movieList, isSpeaker, isHome, isSponsor, isBooth) {
+export function GlobalList(listData, isSpeaker, isHome, isSponsor, isBooth) {
   const speakerCss = "relative w-32 max-md:max-w-[160px]";
   const homeListCss = "relative w-60 max-md:max-w-[150px] max-lg:max-w-[180px]";
-  const sponsorCss = "relative w-28 max-md:max-w-[160px]";
+  const sponsorCss = "relative w-32 max-md:max-w-[160px]";
   const boothCss = "relative w-28 max-md:max-w-[160px]";
-  const cardStyles = `${
-    isBooth ? style.cardBooth : style.card
-  } max-md:max-h-[215px]`;
+  const maxHeight = "  max-h-[215px]";
+  const cardStyles = `${isBooth ? style.cardBooth : style.card} ${
+    !isHome && maxHeight
+  }`;
   const cardImgStyles = `${style.cardImg} max-md:max-h-[220px]`;
 
-  return movieList.map((event, key) => {
-    const eventImageSrc = `${event.EventImage}${key}`;
+  return listData.map((event, key) => {
+    let eventImageSrc = ``;
     let classNames = "";
+
+    let names = "";
 
     if (isSpeaker) {
       classNames += speakerCss;
+      eventImageSrc = `${event.SpeakerLogo}${key}`;
+      names = event.SpeakerName;
     } else if (isHome) {
       classNames += homeListCss;
+      eventImageSrc = `${event.EventImage}${key}`;
+      names = event.EventName;
     } else if (isSponsor) {
       classNames += sponsorCss;
+      eventImageSrc = `${event.SponsorLogo}${key}`;
+      names = event.SponsorName;
     } else if (isBooth) {
       classNames += boothCss;
+      eventImageSrc = `${event.BoothLogo}${key}`;
+      names = event.BoothName;
     }
 
     const likeColor = event.LikeStatus ? "error" : "info";
@@ -47,7 +58,7 @@ export function GlobalList(movieList, isSpeaker, isHome, isSponsor, isBooth) {
         {isHome && (
           <div className="card-body">
             <FavoriteIcon color={likeColor} />
-            <StarRating />
+            <StarRating rating={event.starRating} />
           </div>
         )}
       </div>
@@ -57,7 +68,7 @@ export function GlobalList(movieList, isSpeaker, isHome, isSponsor, isBooth) {
       <div key={event.id} className="flex ">
         <div className={classNames}>
           {cardContent}
-          <h3 className="h-5 mt-2">{event.EventName}</h3>
+          <h3 className="h-5 mt-2">{names}</h3>
           {isHome && <p className="detail">{event.EventCategory}</p>}
         </div>
       </div>
