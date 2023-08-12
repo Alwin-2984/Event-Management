@@ -25,9 +25,7 @@ public class AdminInitializationService {
       Admin admin = new Admin();
       admin.setId(null);
       admin.setEmail("admin@gmail.com");
-      admin.setPassword(
-        "{bcrypt}$2a$10$xdNeBT1fC9baqG4fmEPh3ORD0xTBNgzypcjTHKwP5joeQxOvg93da"
-      );
+      admin.setPassword("{bcrypt}$2a$10$xdNeBT1fC9baqG4fmEPh3ORD0xTBNgzypcjTHKwP5joeQxOvg93da");
       admin.setRole(Role.ADMIN);
       adminRepository.save(admin);
     }

@@ -3,7 +3,7 @@ import axios from "axios";
 import Configuration from "../../Configuration";
 // Set the BASE_URL for API requests using the development URL from the 'Configuration' object.
 
-const BASE_URL = Configuration.devUrl;
+const BASE_URL = Configuration.localUrl;
 
 // Create an axios instance with the default baseURL.
 
@@ -22,8 +22,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
+    const tockenValue = "Event " + token;
     if (token) {
-      config.headers["Authorization"] = token;
+      config.headers["Authorization"] = tockenValue;
     }
     return config;
   },

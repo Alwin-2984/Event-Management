@@ -12,12 +12,16 @@ import StarRating from "../../Components/StarRating";
 import { GlobalList } from "../../Components/GlobalList";
 import Sponsors from "./EventDetailedPageComponents/Sponsors";
 import Booths from "./EventDetailedPageComponents/Booths";
-import Speakers from "./EventDetailedPageComponents/Speakers";
+import  Speakers  from "./EventDetailedPageComponents/Speakers";
 import CountDown from "./EventDetailedPageComponents/CountDown";
 import Footer from "../../Components/Footer/Footer";
 
 const EventDetailedPage1thTheme = ({ DummyData }) => {
   const SpeakerListData = DummyData;
+  console.log(
+    "🚀 ~ file: EventDetailedPage1thTheme.jsx:21 ~ EventDetailedPage1thTheme ~ SpeakerListData:",
+    SpeakerListData
+  );
 
   /**
    * renders Speaker list
@@ -25,7 +29,6 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
   const renderedEvents = [
     /** Function returns list for provided data GlobalList(listData, conditionFor identify if this function using in Speaker  ) */
     {
-      Description: SpeakerListData.SpeakerDescription,
       title: "Who's Speaking",
       events: GlobalList(SpeakerListData.Speakers, true),
     },
@@ -36,7 +39,6 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
   const renderedSponsers = [
     /** Function returns list for provided data GlobalList(listData, conditionFor for using in Home page  , conditionFor for using in Speaker,conditionFor for using in Sponser) */
     {
-      Description: SpeakerListData.SponsorDescription,
       title: "This Event Sponsor",
       events: GlobalList(SpeakerListData.Sponsors, false, false, true),
     },
@@ -56,7 +58,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
         {/* <Canvas bg={bg}/> */}
         <div className="w- flex w-10/12 max-2xl:w-11/12 flex-row justify-center  mt-8  items-end max-sm:mb-7">
           <div className="flex justify-between w-10/12 max-md:w-full">
-            
+            {" "}
             <div className="text-gray-600 font-extrabold text-5xl font-sans max-md:text-3xl max-sm:text-2xl">
               {SpeakerListData.EventName}
             </div>
@@ -105,7 +107,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
               </div>
               <div className="flex flex-row justify-between h-14 items-center max-sm:text-sm">
                 <div className="flex items-center gap-3 max-sm:max-w-[148px]">
-                  <BsCalendar2Week className="text-2xl " />
+                  <BsCalendar2Week className="text-2xl " />{" "}
                   {`${SpeakerListData.StartDate} -
                   ${SpeakerListData.EndDate}`}
                 </div>
@@ -116,7 +118,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
                 </div>
 
                 <div className="flex items-center gap-3 max-sm:text-sm">
-                  <MdLocationOn className="text-2xl " />
+                  <MdLocationOn className="text-2xl " />{" "}
                   {SpeakerListData.Location}
                 </div>
               </div>
@@ -136,7 +138,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
                 <hr />
               </div>
               <div className="w-full">
-                <Sponsors renderedSponsers={renderedSponsers} isTheme1 />
+                <Sponsors renderedSponsers={renderedSponsers} isTheme1={true}/>
               </div>
               <div>
                 <br />
@@ -145,7 +147,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
                 <hr />
               </div>
               <div className="w-full">
-                <Speakers renderedEvents={renderedEvents} isTheme1 />
+                <Speakers renderedEvents={renderedEvents} isTheme1={true} />
               </div>
               <div>
                 <br />
@@ -154,7 +156,7 @@ const EventDetailedPage1thTheme = ({ DummyData }) => {
                 <hr />
               </div>
               <div className="w-full">
-                <Booths renderedBooth={renderedBooth} isTheme1 />
+                <Booths renderedBooth={renderedBooth} isTheme1={true} />
               </div>
             </div>
           </div>

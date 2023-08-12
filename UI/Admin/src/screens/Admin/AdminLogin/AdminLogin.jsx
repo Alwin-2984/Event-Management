@@ -4,7 +4,7 @@ import loginCss from "./AdminLogin.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/Auth";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { adminLogin } from "../../../api/ServiceFile/ApiService";
 import TextField from "@mui/material/TextField";
@@ -12,6 +12,9 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import ErrorCodes from "../../../api/ErrorCodes/ErrorCodes";
+import Toaster from "../../Components/Toaster";
+import { HardCodedValues } from "../../../api/HardCodedValues/HardCodedValues";
 export default function AdminLogin() {
   // State variables for store Email, Password, and their respective error messages
   const [Email, setEmail] = useState("");
@@ -41,7 +44,7 @@ export default function AdminLogin() {
     e.preventDefault();
     const emailValue = e.target.value;
     if (emailValue === null || emailValue === "") {
-      setEmailErr("Email is required");
+      setEmailErr(HardCodedValues.EmailValidation);
     } else {
       setEmailErr("");
       setEmail(e.target.value);
@@ -52,7 +55,7 @@ export default function AdminLogin() {
   const handlePassword = (e) => {
     const passValue = e.target.value;
     if (passValue === null || passValue === "") {
-      setPassErr("Password is required");
+      setPassErr(HardCodedValues.PassValidation);
     } else {
       setPassErr("");
       setPassword(e.target.value);
@@ -62,10 +65,10 @@ export default function AdminLogin() {
   // Event handler for handling the form submission (Login button click)
   const handleSubmit = () => {
     if (Email.trim().length === 0) {
-      setEmailErr("Email is required");
+      setEmailErr(HardCodedValues.EmailValidation);
     }
     if (Password.trim().length === 0) {
-      setPassErr("Password is required");
+      setPassErr(HardCodedValues.PassValidation);
     }
     if (emailErr !== "" || passErr != "") {
       return;
@@ -88,41 +91,15 @@ export default function AdminLogin() {
       .catch((err) => {
         const errCode = err.response.data.errorCode;
         if (errCode === "2032" || errCode === "2000" || errCode === "2031") {
-          toast.error("Invalid credentials", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else if (errCode === "2035") {
-          toast.error("Email id is not found", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else if (errCode === "2050") {
-          toast.error("This account is deleted by admin", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else if (errCode === "2051") {
-          toast.error("This account is blocked by admin", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else {
-          toast.error("Account not found", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          Toaster("Account not found", 1, ["error"]);
         }
       });
   };
@@ -137,10 +114,10 @@ export default function AdminLogin() {
     >
       <Card shadow>
         <Typography variant="h4" className="mt-4 ml-4">
-          Sign In
+          {HardCodedValues.SignIn}
         </Typography>
         <Typography className="mt-1 ml-4 font-normal">
-          Enter your details to login.
+          {HardCodedValues.EnterDetails}
         </Typography>
         <form className="mt-8 mb-2 w-80 ml-4 mr-4 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex to-blue-400 flex-col gap-6">
@@ -150,7 +127,7 @@ export default function AdminLogin() {
               autoComplete="off"
               id="email"
               variant="outlined"
-              label="Email"
+              label={HardCodedValues.Email}
               size="medium"
               onChange={(e) => handleEmail(e)}
             />
@@ -190,7 +167,7 @@ export default function AdminLogin() {
                 ),
               }}
               onChange={(e) => handlePassword(e)}
-              label="Password"
+              label={HardCodedValues.Password}
             />
             {/* Display the Password error message, if any */}
             {passErr != null && (
@@ -209,7 +186,7 @@ export default function AdminLogin() {
           </div>
           {/* Login button */}
           <Button className="mt-6 mb-4" onClick={handleSubmit} fullWidth>
-            Login
+            {HardCodedValues.Login}
           </Button>
         </form>
       </Card>

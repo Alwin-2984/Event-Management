@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class AccessTokenProcessingFilter extends AbstractPreAuthenticatedProcessingFilter {
 
-    private static final Pattern AUTH_PATTERN = Pattern.compile("rentx ([0-9a-f]+)");
+    private static final Pattern AUTH_PATTERN = Pattern.compile("Event ([0-9a-f]+)");
 
     public AccessTokenProcessingFilter(AuthenticationManager authenticationManager) {
         setAuthenticationManager(authenticationManager);

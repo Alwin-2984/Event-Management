@@ -11,10 +11,15 @@ const Dashboard = () => {
     <div>
       {/* added header,sidebar,outlet and footer component to display in dashboard */}
       <Header />
-      <Sidebar />
-      <div className="ml-80 max-w-5xl to-blue-gray-900 py-12">
-        <Outlet />
-        <ToastContainer />
+      <div className="lg:flex">
+        {/* Sidebar */}
+        <Sidebar />
+
+        <div className="lg:flex-1 min-w-0 px-4 py-12 md:ml-80">
+          {/* Content Area */}
+          <Outlet />
+          <ToastContainer />
+        </div>
       </div>
       <Footer />
     </div>

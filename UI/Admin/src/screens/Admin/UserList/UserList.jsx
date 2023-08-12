@@ -16,9 +16,14 @@ import Swal from "sweetalert2";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { listUsersAPI, DeleteUsers } from "../../../api/ServiceFile/ApiService";
+import Toaster from "../../Components/Toaster";
+import {
+  listUsersAPI,
+  DeleteUsers,
+  ActiveUserCount,
+} from "../../../api/ServiceFile/ApiService";
+import ErrorCodes from "../../../api/ErrorCodes/ErrorCodes";
+import { HardCodedValues } from "../../../api/HardCodedValues/HardCodedValues";
 
 import {
   Box,
@@ -39,42 +44,42 @@ const headCells = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: HardCodedValues.Name,
   },
   {
     id: "Email",
     numeric: true,
     disableSorting: true,
     disablePadding: false,
-    label: "Email",
+    label: HardCodedValues.Email,
   },
   {
     id: "DOB",
     numeric: true,
     disablePadding: false,
     disableSorting: true,
-    label: "DOB",
+    label: HardCodedValues.DOB,
   },
   {
     id: "Gender",
     numeric: true,
     disableSorting: true,
     disablePadding: false,
-    label: "Gender",
+    label: HardCodedValues.Gender,
   },
   {
     id: "Block User",
     numeric: true,
     disablePadding: false,
     disableSorting: true,
-    label: "Block User",
+    label: HardCodedValues.BlockUser,
   },
   {
     id: "Delete",
     numeric: true,
     disablePadding: false,
     disableSorting: true,
-    label: "Delete",
+    label: HardCodedValues.Delete,
   },
 ];
 // Function to create the enhanced table head
@@ -127,7 +132,9 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id && (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc"
+                    ? HardCodedValues.SortedAsc
+                    : HardCodedValues.SortedDesc}
                 </Box>
               )}
             </TableSortLabel>
@@ -147,7 +154,6 @@ EnhancedTableHead.propTypes = {
 };
 
 // Define the User component
-
 const UserList = () => {
   // State variables used in the component
 
@@ -160,7 +166,7 @@ const UserList = () => {
   const [data, setData] = useState([]); // variable to store data for list users from api
   const [details, setDetails] = useState(null); // variable to store response from list user api
   const [status, setStatus] = useState([null]); // list status for search
-  const [activeUserCount] = useState(18); // to print active user count
+  const [activeUserCount, setActiveUserCount] = useState(0); // to print active user count
   const [params, setParams] = useState({
     page: 1,
     search: "",
@@ -175,13 +181,14 @@ const UserList = () => {
   // UseEffect to set status on page loading for listing it in the search field
 
   useEffect(() => {
-    setStatus(["Select all", "Blocked user", "Active user"]);
+    setStatus(HardCodedValues.StatusSearchValues);
   }, []);
 
   // UseEffect to fetch the user list when the parameters change
 
   useEffect(() => {
     listUsers();
+    activeUserCounts();
   }, [params]);
 
   // Function to fetch the list of users
@@ -195,35 +202,13 @@ const UserList = () => {
       .catch((err) => {
         const errCode = err?.response?.data?.errorCode;
         if (errCode === "7001") {
-          toast.error("Page must be a natural number", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else if (errCode === "7002") {
-          toast.error("Size must be a natural number", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else if (errCode === "7005") {
-          toast.error("Sort Direction must be 'ASC' or 'DESC", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(ErrorCodes[errCode], 1, ["error"]);
         } else {
-          toast.error("Something went wrong!", {
-            toastId: 1,
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          Toaster(HardCodedValues.UnknownErrVal, 1, ["error"]);
         }
       });
   };
@@ -231,25 +216,28 @@ const UserList = () => {
   // Function to delete a user
   const deleteUser = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: HardCodedValues.SwalTitle,
+      text: HardCodedValues.SwalText,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: HardCodedValues.SwalConfirmButtonText,
     }).then((response) => {
       if (response.isConfirmed) {
         DeleteUsers(id, 2).then(() => {
           ClearData();
-          listUsers();
-          toast.success("User deleted successfully", {
-            toastId: 2,
-            position: "top-center",
-            autoClose: 3000,
-          });
+          Toaster(HardCodedValues.DeleteConfirmation, 2, ["success"]);
         });
       }
+    });
+  };
+
+  // Active user count
+
+  const activeUserCounts = () => {
+    ActiveUserCount().then((res) => {
+      setActiveUserCount(res?.data?.count);
     });
   };
 
@@ -283,13 +271,13 @@ const UserList = () => {
 
       let statusValue;
       switch (value) {
-        case "Select all":
+        case HardCodedValues.SelectAll:
           statusValue = 0;
           break;
-        case "Blocked user":
+        case HardCodedValues.BlockedUser:
           statusValue = 2;
           break;
-        case "Active user":
+        case HardCodedValues.ActiveUser:
           statusValue = 1;
           break;
         default:
@@ -339,11 +327,7 @@ const UserList = () => {
     DeleteUsers(id, 1).then(() => {
       ClearData();
       listUsers();
-      toast.success("User blocked successfully", {
-        toastId: 3,
-        position: "top-center",
-        autoClose: 3000,
-      });
+      Toaster(HardCodedValues.BlockedSuccessMessage, 3, ["success"]);
     });
   };
 
@@ -353,20 +337,16 @@ const UserList = () => {
     DeleteUsers(id, 0).then(() => {
       ClearData();
       listUsers();
-      toast.success("User unblocked successfully", {
-        toastId: 4,
-        position: "top-center",
-        autoClose: 3000,
-      });
+      Toaster(HardCodedValues.UnBlockedSuccessMessage, 4, ["success"]);
     });
   };
 
   // Mapping for gender values
 
   const gender = {
-    0: "Male",
-    1: "Female",
-    2: "Other",
+    0: HardCodedValues.Male,
+    1: HardCodedValues.Female,
+    2: HardCodedValues.Other,
   };
 
   // JSX code for rendering the User component
@@ -396,11 +376,11 @@ const UserList = () => {
             variant="body1"
             sx={{ color: "rgb(0, 172, 193)", fontFamily: "monospace" }}
           >
-            Active user count : {activeUserCount}
+            {HardCodedValues.ActiveCount} : {activeUserCount}
           </Typography>
           {/* Filter button */}
           <IconButton
-            title="Filter"
+            title={HardCodedValues.Filter}
             onClick={(prev) => handleCloseSearch(prev)}
             color="primary"
             className="bg-red-500 hover:animate-pulse"
@@ -430,10 +410,10 @@ const UserList = () => {
                 id="tableTitle"
                 component="div"
               >
-                Filter
+                {HardCodedValues.Filter}
               </Typography>
               <Stack
-                direction="row"
+                direction={{ xs: "column", sm: "row" }}
                 spacing={2}
                 sx={{
                   marginBottom: "30px",
@@ -441,19 +421,28 @@ const UserList = () => {
                   width: "100",
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                <Stack spacing={2} flexGrow={1} sx={{ width: "30%" }}>
+                <Stack
+                  spacing={2}
+                  flexGrow={1}
+                  sx={{ width: { xs: "100%", sm: "30%" } }}
+                >
                   <TextField
                     id="outlined-name"
                     name="Search"
                     size="small"
-                    label="Search"
+                    label={HardCodedValues.Search}
                     variant="outlined"
                     onChange={(e) => handleSearch("search", e)}
                   />
                 </Stack>
-                <Stack spacing={2} flexGrow={1} sx={{ width: "30%" }}>
+                <Stack
+                  spacing={2}
+                  flexGrow={1}
+                  sx={{ width: { xs: "100%", sm: "30%" } }}
+                >
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -464,7 +453,7 @@ const UserList = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Status"
+                        label={HardCodedValues.Status}
                         onBlur={(e) => handleSearch("status", e)}
                       />
                     )}
@@ -475,7 +464,7 @@ const UserList = () => {
                   direction="row"
                   spacing={2}
                   flexGrow={1}
-                  sx={{ width: "20%" }}
+                  sx={{ width: "20%", alignItems: "center" }}
                 >
                   <Button
                     sx={{ width: "40%", height: 39 }}
@@ -485,9 +474,9 @@ const UserList = () => {
                     style={{ backgroundColor: "#144399" }}
                     onClick={handleSearchSubmit}
                   >
-                    Submit
+                    {HardCodedValues.Submit}
                   </Button>
-                  <IconButton title="Clear">
+                  <IconButton title={HardCodedValues.Clear}>
                     <RestartAltIcon
                       color="error"
                       cursor="pointer"
@@ -532,7 +521,14 @@ const UserList = () => {
                             >
                               <TableCell sx={{ padding: "6px" }} />
                               <TableCell
-                                sx={{ padding: "6px" }}
+                                sx={{
+                                  padding: "6px",
+                                  overflow: "hidden",
+                                  whiteSpace: "nowrap",
+                                  textOverflow: "ellipsis",
+                                  maxWidth: 150,
+                                }}
+                                title={row.name}
                                 component="th"
                                 id={labelId}
                                 scope="row"
@@ -540,7 +536,17 @@ const UserList = () => {
                               >
                                 {row.name}
                               </TableCell>
-                              <TableCell sx={{ padding: "6px" }} align="left">
+                              <TableCell
+                                sx={{
+                                  padding: "6px",
+                                  overflow: "hidden",
+                                  whiteSpace: "nowrap",
+                                  textOverflow: "ellipsis",
+                                  maxWidth: 150,
+                                }}
+                                align="left"
+                                title={row.email}
+                              >
                                 {row.email}
                               </TableCell>
                               <TableCell sx={{ padding: "6px" }} align="left">
@@ -554,7 +560,7 @@ const UserList = () => {
 
                                 {row.status === 0 ? (
                                   <IconButton
-                                    title="Block user"
+                                    title={HardCodedValues.BlockUser}
                                     color="success"
                                     className="bg-red-500 hover:animate-pulse"
                                     onClick={() => {
@@ -565,7 +571,7 @@ const UserList = () => {
                                   </IconButton>
                                 ) : (
                                   <IconButton
-                                    title="Unblock user"
+                                    title={HardCodedValues.UnblockUser}
                                     color="error"
                                     className="bg-red-500 hover:animate-pulse"
                                     onClick={() => {
@@ -585,7 +591,7 @@ const UserList = () => {
                                   sx={{ mt: 1.2 }}
                                 >
                                   <IconButton
-                                    title="Delete"
+                                    title={HardCodedValues.Delete}
                                     onClick={() => deleteUser(row.id)}
                                     color="error"
                                     className="bg-red-500 hover:animate-pulse"
@@ -604,7 +610,7 @@ const UserList = () => {
 
                 {(data?.length === 0 || !data) && (
                   <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
-                    No data found
+                    {HardCodedValues.NoData}
                   </Typography>
                 )}
               </TableContainer>

@@ -1,6 +1,7 @@
 package com.innovature.eventmanagement.security.util;
 
 import com.innovature.eventmanagement.util.LanguageUtil;
+import org.springframework.beans.factory.annotation.Value;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Base64;
@@ -14,6 +15,9 @@ public class TokenGenerator {
 
   @Autowired
   private LanguageUtil languageUtil;
+
+  @Value("${global.language}")
+  private String globalLanguage;
 
   /**
    * Class used for returning the generated token.
@@ -212,7 +216,7 @@ public class TokenGenerator {
       long timeDiff = currentTime - keyTime;
 
       if (timeDiff >= expiry) {
-        throw new TokenExpiredException(languageUtil.getTranslatedText("token.expired", null, "en"));
+        throw new TokenExpiredException(languageUtil.getTranslatedText("token.expired", null, globalLanguage));
       }
     }
 
