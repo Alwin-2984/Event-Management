@@ -22,6 +22,7 @@ export default function Booths({
   } else if (isTheme4) {
     currentCSS += theme4CSS;
   }
+
   return (
     <div className="mb-5">
       {renderedBooth.map((event) => {

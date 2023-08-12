@@ -11,17 +11,7 @@ export default function Sponsors({
   const theme3CSS = "overflow-y-auto max-h-[60vh]";
   const theme4CSS = "overflow-y-auto max-h-[60vh]";
 
-  let currentCSS = "";
 
-  if (isTheme1) {
-    currentCSS += theme1CSS;
-  } else if (isTheme2) {
-    currentCSS += theme2CSS;
-  } else if (isTheme3) {
-    currentCSS += theme3CSS;
-  } else if (isTheme4) {
-    currentCSS += theme4CSS;
-  }
   return (
     <div className="mb-5">
       {renderedSponsers.map((event) => {
