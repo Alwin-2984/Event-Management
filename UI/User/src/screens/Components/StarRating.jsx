@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const StarRating = ({rating}) => {
   const [value, setValue] = useState(rating);
+  console.log("🚀 ~ file: StarRating.jsx:7 ~ StarRating ~ rating:", rating)
   
   return (
     <>

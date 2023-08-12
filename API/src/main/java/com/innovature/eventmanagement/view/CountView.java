@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class countView {
+public class CountView {
 
   private long count;
 
-  public countView(long count) {
+  public CountView(long count) {
     this.count = count;
   }
 }

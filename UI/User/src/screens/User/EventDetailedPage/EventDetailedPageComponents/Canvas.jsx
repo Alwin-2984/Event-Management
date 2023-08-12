@@ -3,7 +3,10 @@ import { BsCaretRight } from "react-icons/bs";
 import CountDown from "./CountDown";
 
 export default function Canvas({ SpeakerListData, bg }) {
- 
+  console.log(
+    "🚀 ~ file: Canvas.jsx:6 ~ Canvas ~ SpeakerListData:",
+    SpeakerListData
+  );
 
   return (
     <div

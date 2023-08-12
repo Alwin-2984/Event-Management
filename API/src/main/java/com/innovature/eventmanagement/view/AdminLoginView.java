@@ -1,19 +1,18 @@
 package com.innovature.eventmanagement.view;
 
+import com.innovature.eventmanagement.entity.Admin;
 import com.innovature.eventmanagement.json.Json;
 import com.innovature.eventmanagement.security.util.TokenGenerator;
-
 import java.util.Date;
-
-import com.innovature.eventmanagement.entity.Admin;
-
 import lombok.Getter;
 
 @Getter
 public class AdminLoginView extends AdminView {
+
     public static class TokenView {
 
         private final String value;
+
         @Json.DateTimeFormat
         private final Date expiry;
 

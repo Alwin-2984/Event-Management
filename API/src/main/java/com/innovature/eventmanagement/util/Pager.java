@@ -1,10 +1,11 @@
 package com.innovature.eventmanagement.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.*;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pager<T> {
+
     public static final String PAGER_KEY = "pager";
 
     static final int BEST_NUMBER = 1;
@@ -87,7 +88,7 @@ public class Pager<T> {
     }
 
     public Pager(Integer pageSize, Integer page) {
-        this(pageSize,  page, 10);
+        this(pageSize, page, 10);
     }
 
     public Pager(Integer pageSize, int numItems, Integer page, int displayCount) {
@@ -171,7 +172,6 @@ public class Pager<T> {
         return numItems;
     }
 
-
     public int getStartIndex() {
         return startIndex;
     }
@@ -191,8 +191,6 @@ public class Pager<T> {
     public int getDisplayEnd() {
         return displayEnd;
     }
-
-
 
     public int getItemStart() {
         return itemStart;
@@ -231,5 +229,4 @@ public class Pager<T> {
         map.put(resultKey, result);
         return map;
     }
-
 }

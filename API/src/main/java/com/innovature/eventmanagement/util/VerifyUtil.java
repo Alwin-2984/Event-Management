@@ -27,11 +27,15 @@ public class VerifyUtil {
   @Autowired
   private LanguageUtil languageUtil;
 
+  @Value("${global.language}")
+  private String globalLanguage;
+
   @Autowired
   private EmailContents emailContents;
 
   @Autowired
   private EmailUtil emailUtil;
+
   @Autowired
   private TokenGenerator tokenGenerator;
 
@@ -43,35 +47,27 @@ public class VerifyUtil {
 
   Random random1 = new Random();
 
+  // Generate Random OTP and send email
   public Otp generateOtp(String email, String emailTemplate) {
     int otp = 100000 + random1.nextInt(900000);
     String otpStr = String.valueOf(otp);
     LocalTime exp = LocalTime.now();
     Otp otp1 = otpRepository.findByEmail(email);
-    // Extract the email address of the recipient
     String to = email;
-
-    // Generate the content of the email by using the OTP and a predefined email
-    // template
-
     String content;
     if (emailTemplate.equals("signupEmailContent")) {
       content = emailContents.signupEmailContent(otpStr);
     } else {
       content = emailContents.forgotPasswordEmailContent(otpStr);
     }
-    // Set the subject of the verification email
     String subject = "Email Verification";
-
-    // Data in otp table will be updated if email is present in otp table
     if (otp1 != null) {
       otp1.setOtp(otpStr);
       otp1.setExpiry(exp);
       otp1.setExpiry(exp.plus(otpValidity, ChronoUnit.MINUTES));
       otp1.setStatus(Otp.Status.ACTIVE.value);
       otpRepository.save(otp1);
-
-      emailUtil.sendEmail(to, content, subject);
+      emailUtil.sendEmail(to, content, subject); // sends email
       return otp1;
     } else {
       Otp otpEntity = new Otp();
@@ -81,19 +77,19 @@ public class VerifyUtil {
       otpEntity.setCreatedAt(new Date());
       otpEntity.setStatus(Otp.Status.ACTIVE.value);
       otpRepository.save(otpEntity);
-
       emailUtil.sendEmail(to, content, subject);
       return otpEntity;
     }
   }
 
+  // Verification of purpose token
   public VerificationStatus verifyPurposeToken(String tokenType, String token) {
     try {
       return tokenGenerator.verify(tokenType, token);
     } catch (InvalidTokenException e) {
-      throw new BadRequestException(languageUtil.getTranslatedText(INVALID_TOKEN_EMAIL, null, "en"), e);
+      throw new BadRequestException(languageUtil.getTranslatedText(INVALID_TOKEN_EMAIL, null, globalLanguage), e);
     } catch (TokenExpiredException e) {
-      throw new BadRequestException(languageUtil.getTranslatedText("token.expired", null, "en"), e);
+      throw new BadRequestException(languageUtil.getTranslatedText("token.expired", null, globalLanguage), e);
     }
   }
 }

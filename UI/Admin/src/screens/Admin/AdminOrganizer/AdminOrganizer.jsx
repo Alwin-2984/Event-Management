@@ -15,8 +15,8 @@ import Swal from "sweetalert2";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Toaster from "../../Components/Toaster";
+import { HardCodedValues } from "../../../api/HardCodedValues/HardCodedValues";
 
 import {
   Box,
@@ -69,26 +69,26 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "OrganizerName",
+    id: HardCodedValues.OrganizerName,
     numeric: false,
     disablePadding: true,
     label: "Name",
   },
   {
-    id: "Email",
+    id: HardCodedValues.Email,
     numeric: true,
     disablePadding: false,
     label: "Email",
   },
   {
-    id: "Block Organizer",
+    id: HardCodedValues.BlockOrganizer,
     numeric: true,
     disablePadding: false,
     disableSorting: true,
     label: "Block Organizer",
   },
   {
-    id: "Delete",
+    id: HardCodedValues.Delete,
     numeric: true,
     disablePadding: false,
     disableSorting: true,
@@ -107,11 +107,21 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell
-          style={{ backgroundColor: "rgb(155 209 242)", color: "black",padding:"6px",height:"50px" }}
+          style={{
+            backgroundColor: "rgb(155 209 242)",
+            color: "black",
+            padding: "6px",
+            height: "50px",
+          }}
         />
         {headCells.map((headCell) => (
           <TableCell
-            style={{ backgroundColor: "rgb(155 209 242)", color: "black",padding:"6px",height:"50px" }}
+            style={{
+              backgroundColor: "rgb(155 209 242)",
+              color: "black",
+              padding: "6px",
+              height: "50px",
+            }}
             key={headCell.id}
             align="left"
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -126,7 +136,9 @@ function EnhancedTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id && (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc"
+                    ? HardCodedValues.SortedDesc
+                    : HardCodedValues.SortedAsc}
                 </Box>
               )}
             </TableSortLabel>
@@ -162,22 +174,22 @@ const AdminOrganizer = () => {
 
   // Set the status values for search field on page loading
   useEffect(() => {
-    setStatus(["Blocked organizer", "Active organizer"]);
+    setStatus(HardCodedValues.StatusSearchValueOrg);
   }, []);
 
   // Function to delete an organizer with confirmation
   const deleteOrganizer = () => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: HardCodedValues.SwalTitle,
+      text: HardCodedValues.SwalText,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: HardCodedValues.SwalConfirmButtonText,
     }).then((response) => {
       if (response.isConfirmed) {
-        console.log(response);
+        // API call here
       }
     });
   };
@@ -290,27 +302,17 @@ const AdminOrganizer = () => {
   // Function to handle search form submission
 
   const handleSearchSubmit = () => {
-    console.log(searchValue);
+    // API call here
   };
   // Function to handle blocking an organizer
 
-  const handleBlockOrganizer = (id) => {
-    console.log("Organizer blocked", id);
-    toast.success("Organizer blocked successfully", {
-      toastId: 1,
-      position: "top-center",
-      autoClose: 3000,
-    });
+  const handleBlockOrganizer = () => {
+    Toaster(HardCodedValues.BlockedSuccessOrg, 1, ["success"]);
   };
   // Function to handle unblocking an organizer
 
-  const handleUnBlockOrganizer = (id) => {
-    console.log("unblock organizer", id);
-    toast.success("Organizer unblocked successfully", {
-      toastId: 1,
-      position: "top-center",
-      autoClose: 3000,
-    });
+  const handleUnBlockOrganizer = () => {
+    Toaster(HardCodedValues.UnblockSuccessOrg, 1, ["success"]);
   };
 
   return (
@@ -338,11 +340,11 @@ const AdminOrganizer = () => {
             variant="body1"
             sx={{ color: "rgb(0, 172, 193)", fontFamily: "monospace" }}
           >
-            Active organizer count : {activeOrganizerCount}
+            {HardCodedValues.ActiveOrgCount} : {activeOrganizerCount}
           </Typography>
           {/* Filter button */}
           <IconButton
-            title="Filter"
+            title={HardCodedValues.Filter}
             onClick={(prev) => handleCloseSearch(prev)}
             color="primary"
             className="bg-red-500 hover:animate-pulse"
@@ -371,7 +373,7 @@ const AdminOrganizer = () => {
                 id="tableTitle"
                 component="div"
               >
-                Filter
+                {HardCodedValues.Filter}
               </Typography>
               <Stack
                 direction="row"
@@ -389,7 +391,7 @@ const AdminOrganizer = () => {
                     id="outlined-name"
                     name="Name"
                     size="small"
-                    label="Name"
+                    label={HardCodedValues.Name}
                     variant="outlined"
                     onChange={(e) => handleSearch("Name", e)}
                   />
@@ -405,7 +407,7 @@ const AdminOrganizer = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Status"
+                        label={HardCodedValues.Status}
                         onBlur={(e) => handleSearch("Status", e)}
                       />
                     )}
@@ -426,9 +428,9 @@ const AdminOrganizer = () => {
                     style={{ backgroundColor: "#144399" }}
                     onClick={handleSearchSubmit}
                   >
-                    Submit
+                    {HardCodedValues.Submit}
                   </Button>
-                  <IconButton title="Clear">
+                  <IconButton title={HardCodedValues.Clear}>
                     <RestartAltIcon
                       color="error"
                       cursor="pointer"
@@ -470,38 +472,57 @@ const AdminOrganizer = () => {
                                 hover
                                 role="checkbox"
                                 tabIndex={-1}
-                                key={row._id}
+                                key={row.id}
                               >
-                                <TableCell sx={{ padding: "6px" }}/>
+                                <TableCell sx={{ padding: "6px" }} />
                                 <TableCell
                                   component="th"
                                   id={labelId}
                                   scope="row"
-                                  sx={{ padding: "6px" }}
+                                  title={row.OrganizerName}
+                                  sx={{
+                                    padding: "6px",
+                                    overflow: "hidden",
+                                    whiteSpace: "nowrap",
+                                    textOverflow: "ellipsis",
+                                    maxWidth: 150,
+                                  }}
                                 >
                                   {row.OrganizerName}
                                 </TableCell>
-                                <TableCell sx={{ padding: "6px" }} align="left">{row.Email}</TableCell>
+                                <TableCell
+                                  sx={{
+                                    padding: "6px",
+                                    overflow: "hidden",
+                                    whiteSpace: "nowrap",
+                                    textOverflow: "ellipsis",
+                                    maxWidth: 150,
+                                  }}
+                                  align="left"
+                                  title={row.Email}
+                                >
+                                  {row.Email}
+                                </TableCell>
                                 <TableCell sx={{ padding: "6px" }} align="left">
                                   {/* Display either Block or Unblock button based on 'status' */}
                                   {row.Status === "UnBlocked" ? (
                                     <IconButton
-                                      title="Block organizer"
+                                      title={HardCodedValues.BlockOrganizer}
                                       color="success"
                                       className="bg-red-500 hover:animate-pulse"
                                       onClick={() => {
-                                        handleBlockOrganizer(row.id);
+                                        handleBlockOrganizer();
                                       }}
                                     >
                                       <LockOpenIcon className="h-4 w-4" />
                                     </IconButton>
                                   ) : (
                                     <IconButton
-                                      title="Unblock organizer"
+                                      title={HardCodedValues.UnblockOrganizer}
                                       color="error"
                                       className="bg-red-500 hover:animate-pulse"
                                       onClick={() => {
-                                        handleUnBlockOrganizer(row.id);
+                                        handleUnBlockOrganizer();
                                       }}
                                     >
                                       <LockIcon className="h-4 w-4" />
@@ -516,7 +537,7 @@ const AdminOrganizer = () => {
                                     sx={{ mt: 1.2 }}
                                   >
                                     <IconButton
-                                      title="Delete"
+                                      title={HardCodedValues.Delete}
                                       onClick={() => deleteOrganizer()}
                                       color="error"
                                       className="bg-red-500 hover:animate-pulse"
@@ -534,7 +555,7 @@ const AdminOrganizer = () => {
                 {/* Display "No data found" if no data or an empty array */}
                 {(data?.length === 0 || !data) && (
                   <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
-                    No data found
+                    {HardCodedValues.NoData}
                   </Typography>
                 )}
               </TableContainer>

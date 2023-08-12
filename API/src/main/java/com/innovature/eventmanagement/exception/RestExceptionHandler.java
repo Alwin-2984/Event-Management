@@ -2,7 +2,6 @@ package com.innovature.eventmanagement.exception;
 
 import com.innovature.eventmanagement.view.ResponseView;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -51,8 +50,9 @@ public class RestExceptionHandler {
       }
 
       return new ResponseView(errorMessage, errorCode);
-    }).collect(Collectors.toList());
+    }).toList();
   }
+
 
   @ExceptionHandler(value = { ResponseStatusException.class })
   public ResponseEntity<Object> responseStatus(ResponseStatusException ex) {

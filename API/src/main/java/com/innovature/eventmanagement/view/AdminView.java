@@ -16,6 +16,5 @@ public class AdminView {
         this.id = admin.getId();
         this.email = admin.getEmail();
         this.role = admin.getRole().name();
-
     }
 }

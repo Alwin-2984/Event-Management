@@ -4,11 +4,9 @@ import EventDetailedPag4thLayout from "./EventDetailedPag4thLayout";
 import EventDetailedPage1thTheme from "./EventDetailedPage1thTheme";
 import EventDetailedPage2ndTheme from "./EventDetailedPage2ndTheme";
 import EventDetailedPage3rdTheme from "./EventDetailedPage3rdTheme";
-import {  
-  // DummyDataForDetailedEvent,
-   DummyDataForDetailedEvent2,
-    // DummyDataForDetailedEvent3 
-  } from "../DummyData.jsx/DummyData";
+
+import {  DummyDataForDetailedEvent, DummyDataForDetailedEvent2, DummyDataForDetailedEvent3 } from "../DummyData.jsx/DummyData";
+console.log("🚀 ~ file: EventDetailPage.jsx:9 ~ DummyDataForDetailedEvent:", DummyDataForDetailedEvent)
 
 const SelectField = ({ options, handleLayout }) => (
   <div className="min-h-[100px] bg-transparent">
@@ -55,10 +53,10 @@ const EventDetailPage = () => {
         </div>
       </div>
 
-      {statusData.status === "theme1" && <EventDetailedPage1thTheme DummyData={DummyDataForDetailedEvent2}/>}
+      {statusData.status === "theme1" && <EventDetailedPage1thTheme DummyData={DummyDataForDetailedEvent}/>}
       {statusData.status === "theme2" && <EventDetailedPage2ndTheme DummyData={DummyDataForDetailedEvent2} />}
-      {statusData.status === "theme3" && <EventDetailedPage3rdTheme DummyData={DummyDataForDetailedEvent2} />}
-      {statusData.status === "theme4" && <EventDetailedPag4thLayout DummyData={DummyDataForDetailedEvent2} />}
+      {statusData.status === "theme3" && <EventDetailedPage3rdTheme DummyData={DummyDataForDetailedEvent3} />}
+      {statusData.status === "theme4" && <EventDetailedPag4thLayout DummyData={DummyDataForDetailedEvent} />}
     </>
   );
 };

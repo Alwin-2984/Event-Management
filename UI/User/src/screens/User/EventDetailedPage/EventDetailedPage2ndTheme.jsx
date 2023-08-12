@@ -6,7 +6,8 @@ import Canvas from "./EventDetailedPageComponents/Canvas";
 import MainImageAndDetails from "./EventDetailedPageComponents/MainImageAndDetails";
 
 const EventDetailedPage2ndTheme = ({DummyData}) => {
- 
+  // const CanvasImageVar =
+  //   "https://media2.giphy.com/media/3og0IFELH2AXdKM0es/giphy.gif?cid=790b7611dvici5zym8dcq5subwn4ecznqqge9gqn6ey41f4w&ep=v1_gifs_search&rid=giphy.gif&ct=g";
   const SpeakerListData = DummyData;
 
   const bg = {
@@ -19,7 +20,6 @@ const EventDetailedPage2ndTheme = ({DummyData}) => {
   const renderedEvents = [
     /** Function returns list for provided data GlobalList(listData, conditionFor identify if this function using in Speaker  ) */
     {
-      Description: SpeakerListData.SpeakerDescription,
       title: "Who's Speaking",
       events: GlobalList(SpeakerListData.Speakers, true),
     },
@@ -30,7 +30,6 @@ const EventDetailedPage2ndTheme = ({DummyData}) => {
   const renderedSponsers = [
     /** Function returns list for provided data GlobalList(listData, conditionFor for using in Home page  , conditionFor for using in Speaker,conditionFor for using in Sponser) */
     {
-      Description: SpeakerListData.SponsorDescription,
       title: "This Event Sponsor",
       events: GlobalList(SpeakerListData.Sponsors, false, false, true),
     },
@@ -62,7 +61,7 @@ const EventDetailedPage2ndTheme = ({DummyData}) => {
             />
           </div>
 
-          <div className="flex  w-1/3 max-md:w-full sticky top-0 h-max">
+          <div className="flex  w-1/3 max-md:w-full">
             <Booths renderedBooth={renderedBooth} isTheme2/>
           </div>
         </div>

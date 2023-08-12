@@ -20,7 +20,6 @@ const EventDetailedPage3rdTheme = ({ DummyData }) => {
   const renderedEvents = [
     /** Function returns list for provided data GlobalList(listData, conditionFor identify if this function using in Speaker  ) */
     {
-      Description: SpeakerListData.SpeakerDescription,
       title: "Who's Speaking",
       events: GlobalList(SpeakerListData.Speakers, true),
     },
@@ -31,7 +30,6 @@ const EventDetailedPage3rdTheme = ({ DummyData }) => {
   const renderedSponsers = [
     /** Function returns list for provided data GlobalList(listData, conditionFor for using in Home page  , conditionFor for using in Speaker,conditionFor for using in Sponser) */
     {
-      Description: SpeakerListData.SponsorDescription,
       title: "This Event Sponsor",
       events: GlobalList(SpeakerListData.Sponsors, false, false, true),
     },
@@ -68,7 +66,7 @@ const EventDetailedPage3rdTheme = ({ DummyData }) => {
               />
               <div className="flex flex-row justify-between h-14 items-center max-sm:text-sm">
                 <div className="flex items-center gap-3 max-sm:max-w-[148px]">
-                  <BsCalendar2Week className="text-2xl " />
+                  <BsCalendar2Week className="text-2xl " />{" "}
                   {`${SpeakerListData.StartDate} -
                   ${SpeakerListData.EndDate}`}
                 </div>
@@ -79,7 +77,7 @@ const EventDetailedPage3rdTheme = ({ DummyData }) => {
                 </div>
 
                 <div className="flex items-center gap-3 max-sm:text-sm">
-                  <MdLocationOn className="text-2xl " />
+                  <MdLocationOn className="text-2xl " />{" "}
                   {SpeakerListData.Location}
                 </div>
               </div>
@@ -145,16 +143,13 @@ const EventDetailedPage3rdTheme = ({ DummyData }) => {
                   {SpeakerListData.EventDescrition}
                 </div>
               </div>
-              <br />
-              <hr />
-              <br />
               <div className="w-full">
-                
+                {" "}
                 <Sponsors renderedSponsers={renderedSponsers} isTheme3 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-1/3 max-md:w-full mb-5 ">
+          <div className="flex flex-col w-1/3 max-md:w-full mb-5">
             <div className="w-full">
               <Speakers renderedEvents={renderedEvents} isTheme3 />
             </div>

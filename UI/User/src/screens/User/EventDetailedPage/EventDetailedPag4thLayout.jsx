@@ -30,7 +30,6 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
   const renderedEvents = [
     /** Function returns list for provided data GlobalList(listData, conditionFor identify if this function using in Speaker  ) */
     {
-      Description: SpeakerListData.SpeakerDescription,
       title: "Who's Speaking",
       events: GlobalList(SpeakerListData.Speakers, true),
     },
@@ -41,7 +40,6 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
   const renderedSponsers = [
     /** Function returns list for provided data GlobalList(listData, conditionFor for using in Home page  , conditionFor for using in Speaker,conditionFor for using in Sponser) */
     {
-      Description: SpeakerListData.SponsorDescription,
       title: "This Event Sponsor",
       events: GlobalList(SpeakerListData.Sponsors, false, false, true),
     },
@@ -86,7 +84,7 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
 
             <div className="flex flex-row justify-between h-14 items-center max-sm:text-sm">
               <div className="flex items-center gap-3 max-sm:max-w-[148px]">
-                <BsCalendar2Week className="text-2xl " />
+                <BsCalendar2Week className="text-2xl " />{" "}
                 {`${SpeakerListData.StartDate} -
                   ${SpeakerListData.EndDate}`}
               </div>
@@ -97,7 +95,7 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
               </div>
 
               <div className="flex items-center gap-3 max-sm:text-sm">
-                <MdLocationOn className="text-2xl " />
+                <MdLocationOn className="text-2xl " />{" "}
                 {SpeakerListData.Location}
               </div>
             </div>
@@ -152,14 +150,14 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
             </div>
             <div className="w-full">
               {" "}
-              <Sponsors renderedSponsers={renderedSponsers} isTheme4 />
+              <Sponsors renderedSponsers={renderedSponsers} isTheme3 />
             </div>
             <br />
             <br />
             <hr />
             <hr />
             <div className="w-full">
-              <Speakers renderedEvents={renderedEvents} isTheme4 />
+              <Speakers renderedEvents={renderedEvents} isTheme3 />
             </div>
             <div className="md:hidden">
               <br />
@@ -169,8 +167,8 @@ const EventDetailedPag4thLayout = ({ DummyData }) => {
             </div>
           </div>
 
-          <div className="flex  w-1/3 max-md:w-full sticky top-0 h-max">
-            <Booths renderedBooth={renderedBooth} isTheme4 />
+          <div className="flex  w-1/3 max-md:w-full">
+            <Booths renderedBooth={renderedBooth} isTheme3 />
           </div>
         </div>
       </div>
